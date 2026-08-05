@@ -12,7 +12,7 @@
             --vintage-paper: #f4f1ea;
             --card-bg: #eae4d8;
             --card-white: #faf8f5;
-            --olive-dark: #2c382e;sd
+            --olive-dark: #2c382e;
             --olive-green: #4a5d4e;
             --olive-light: #738a78;
             --accent-gold: #a88b4a;
@@ -107,14 +107,14 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-family: 'Amiri', serif !important; /* Always show Arabic font for "العربية" */
+            font-family: 'Amiri', serif !important;
         }
         .lang-btn:hover {
             background: var(--olive-green);
             color: var(--vintage-paper);
         }
         body[lang="ar"] .lang-btn {
-            font-family: var(--font-en) !important; /* Switch to English font for "English" */
+            font-family: var(--font-en) !important;
         }
 
         /* Larger Main Container */
@@ -551,7 +551,7 @@
             options: [
                 {
                     text: {
-                        en: "A broad-jawed man with a with a full beard, sharp cheekbones, and heavy hooded eyelids casting a shadow over his eyes.",
+                        en: "A broad-jawed man with a full beard, sharp cheekbones, and heavy hooded eyelids casting a shadow over his eyes.",
                         ar: "رجل عريض الفك، بلحية مكتملة، ذو عظام وجنتين بارزة، وجفون ثقيلة مبطنة تلقي بظلالها على عينيه."
                     }, correct: false
                 },
@@ -673,7 +673,7 @@
     let timeLeft = 25;
     let timerInterval = null;
     let isAnsweringBlocked = false;
-    let gameWonLast = false; // Tracks win/loss state for translation updates
+    let gameWonLast = false; 
 
     // DOM Elements
     const body = document.body;
@@ -714,7 +714,7 @@
             levelIndicator.textContent = `${dictionary[currentLang].levelPrefix} ${currentLevel + 1} / ${levelsData.length}`;
             charName.textContent = levelsData[currentLevel].name[currentLang];
 
-            // Re-translate Options (keep their correct/wrong status visually if they clicked already, though block is active)
+            // Re-translate Options 
             const optionBtns = optionsContainer.children;
             levelsData[currentLevel].options.forEach((opt, index) => {
                 if(optionBtns[index]) {
@@ -797,7 +797,16 @@
     function startTimer() {
         clearInterval(timerInterval);
         timeLeft = 25;
+        
+        // Prevent the visual bar from "animating backwards" when resetting
+        timerBar.style.transition = 'none';
         updateTimerUI();
+        
+        // Force the browser to register the full width instantly
+        void timerBar.offsetWidth; 
+        
+        // Turn the smooth transition back on for the countdown
+        timerBar.style.transition = 'width 1s linear, background-color 0.3s ease';
 
         timerInterval = setInterval(() => {
             timeLeft--;
@@ -846,7 +855,12 @@
     function handleTimeout() {
         if (isAnsweringBlocked) return;
         isAnsweringBlocked = true;
-        deductHeart();
+        
+        // Add a small delay so the player actually sees that time ran out 
+        // before the game jumps to the next screen or deducts a heart.
+        setTimeout(() => {
+            deductHeart();
+        }, 800);
     }
 
     function deductHeart() {
@@ -865,7 +879,7 @@
         clearInterval(timerInterval);
         gameScreen.classList.remove('active');
         endScreen.classList.add('active');
-        gameWonLast = won; // Save state for language toggling
+        gameWonLast = won; 
 
         const endIcon = document.getElementById('end-icon');
         const endTitle = document.getElementById('end-title');
