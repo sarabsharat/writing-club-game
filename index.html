@@ -455,7 +455,7 @@
             </div>
             <div class="timer-text-container">
                 <span data-i18n="timeRemaining">Time Remaining</span>
-                <span id="timer-number" class="timer-number">15s</span>
+                <span id="timer-number" class="timer-number">25s</span>
             </div>
         </div>
     </div>
@@ -670,7 +670,7 @@
     let currentLang = 'en';
     let currentLevel = 0;
     let hearts = 2;
-    let timeLeft = 15;
+    let timeLeft = 25;
     let timerInterval = null;
     let isAnsweringBlocked = false;
     let gameWonLast = false; // Tracks win/loss state for translation updates
@@ -796,7 +796,7 @@
 
     function startTimer() {
         clearInterval(timerInterval);
-        timeLeft = 15;
+        timeLeft = 25;
         updateTimerUI();
 
         timerInterval = setInterval(() => {
@@ -812,7 +812,7 @@
 
     function updateTimerUI() {
         timerNumber.textContent = `${timeLeft}s`;
-        const percentage = (timeLeft / 15) * 100;
+        const percentage = (timeLeft / 25) * 100;
         timerBar.style.width = `${percentage}%`;
 
         if (timeLeft <= 5) {
