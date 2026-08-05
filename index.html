@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Match the Description! | HTU Creative Writing & Poetry Club</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vintage-paper: #f4f1ea;
+            --card-bg: #eae4d8;
+            --card-white: #faf8f5;
+            --olive-dark: #2c382e;
+            --olive-green: #4a5d4e;
+            --olive-light: #738a78;
+            --accent-gold: #a88b4a;
+            --text-main: #242926;
+            --text-muted: #5a635c;
+            --danger-color: #b94a48;
+            --success-color: #3b6e4c;
+            --shadow: 0 12px 36px rgba(44, 56, 46, 0.1);
+            --font-en: 'Plus Jakarta Sans', sans-serif;
+            --font-ar: 'Amiri', serif;
+            --font-title: 'Cinzel', serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-en);
+        }
+
+        body {
+            background-color: var(--vintage-paper);
+            background-image: radial-gradient(#d3cbbd 0.85px, transparent 0.85px);
+            background-size: 18px 18px;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 50px;
+            transition: all 0.3s ease;
+        }
+
+        /* RTL (Arabic) adjustments */
+        body[lang="ar"] * {
+            font-family: var(--font-ar) !important;
+        }
+        body[lang="ar"] .header-title,
+        body[lang="ar"] .home-hero h1,
+        body[lang="ar"] .character-name,
+        body[lang="ar"] .end-title,
+        body[lang="ar"] .ig-handle {
+            font-weight: 700;
+        }
+
+        /* Expanded Brand Header */
+        header {
+            width: 92%;
+            max-width: 900px;
+            margin: 28px auto 16px;
+            padding: 20px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(234, 228, 216, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(74, 93, 78, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+            gap: 15px;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-title {
+            font-family: var(--font-title);
+            color: var(--olive-dark);
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* Language Button */
+        .lang-btn {
+            background: transparent;
+            border: 1.5px solid var(--olive-green);
+            color: var(--olive-green);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Amiri', serif !important; /* Always show Arabic font for "العربية" */
+        }
+        .lang-btn:hover {
+            background: var(--olive-green);
+            color: var(--vintage-paper);
+        }
+        body[lang="ar"] .lang-btn {
+            font-family: var(--font-en) !important; /* Switch to English font for "English" */
+        }
+
+        /* Larger Main Container */
+        .container {
+            width: 92%;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .screen {
+            display: none;
+            background: var(--card-white);
+            padding: 48px 40px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(74, 93, 78, 0.18);
+            position: relative;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Home Screen Aesthetics */
+        .home-hero {
+            text-align: center;
+        }
+
+        .motto-arabic {
+            font-family: 'Amiri', serif !important;
+            font-size: 2.2rem;
+            color: var(--olive-green);
+            margin-bottom: 12px;
+            direction: rtl;
+        }
+
+        .home-hero h1 {
+            font-family: var(--font-title);
+            font-size: 2.8rem;
+            color: var(--olive-dark);
+            margin-bottom: 16px;
+        }
+
+        .home-hero p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 32px;
+            font-size: 1.15rem;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            background-color: var(--olive-green);
+            color: var(--vintage-paper);
+            border: 1px solid var(--olive-dark);
+            padding: 18px 48px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: var(--font-title);
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 6px 18px rgba(74, 93, 78, 0.25);
+        }
+
+        .btn:hover {
+            background-color: var(--olive-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(44, 56, 46, 0.35);
+        }
+
+        /* Game Header / Stats */
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(74, 93, 78, 0.18);
+        }
+
+        .level-badge {
+            font-family: var(--font-title);
+            background: var(--card-bg);
+            color: var(--olive-dark);
+            padding: 8px 20px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .hearts-container {
+            display: flex;
+            gap: 8px;
+        }
+
+        .heart-icon {
+            width: 32px;
+            height: 32px;
+            fill: var(--danger-color);
+            transition: all 0.3s ease;
+        }
+
+        .heart-icon.lost {
+            fill: #d3cbbd;
+            transform: scale(0.85);
+        }
+
+        /* Character Profile Card */
+        .character-card {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .character-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--olive-green);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+            margin-bottom: 12px;
+        }
+
+        .character-name {
+            font-family: var(--font-title);
+            font-size: 1.9rem;
+            color: var(--olive-dark);
+        }
+
+        /* Options Buttons */
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .option-btn {
+            background: var(--vintage-paper);
+            border: 1.5px solid rgba(74, 93, 78, 0.25);
+            padding: 18px 24px;
+            border-radius: 16px;
+            text-align: start;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .option-btn:hover {
+            border-color: var(--olive-green);
+            background: var(--card-bg);
+            transform: translateY(-2px);
+        }
+
+        .option-btn.correct {
+            background: #e8f3ec !important;
+            border-color: var(--success-color) !important;
+            color: #1e452a !important;
+        }
+
+        .option-btn.wrong {
+            background: #fbf0f0 !important;
+            border-color: var(--danger-color) !important;
+            color: #632322 !important;
+        }
+
+        /* Timer Section */
+        .timer-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .timer-bar-bg {
+            width: 100%;
+            height: 10px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .timer-bar-fill {
+            height: 100%;
+            width: 100%;
+            background: var(--olive-green);
+            border-radius: 10px;
+            transition: width 1s linear, background-color 0.3s ease;
+        }
+
+        .timer-text-container {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .timer-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--olive-dark);
+            display: inline-block;
+        }
+
+        .timer-number.boiling {
+            color: var(--danger-color);
+            animation: boil 0.15s infinite alternate ease-in-out;
+        }
+
+        @keyframes boil {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-2px, 1px) scale(1.15); }
+            100% { transform: translate(2px, -1px) scale(1.2); }
+        }
+
+        /* End Screen */
+        .end-screen-content {
+            text-align: center;
+        }
+
+        .end-icon {
+            font-size: 4rem;
+            margin-bottom: 12px;
+        }
+
+        .end-title {
+            font-family: var(--font-title);
+            font-size: 2.4rem;
+            color: var(--olive-dark);
+            margin-bottom: 12px;
+        }
+
+        .end-desc {
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            font-size: 1.15rem;
+            line-height: 1.6;
+        }
+
+        /* Instagram Card */
+        .ig-card {
+            background: var(--vintage-paper);
+            border: 1.5px dashed var(--olive-green);
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .ig-handle {
+            font-family: var(--font-title);
+            font-weight: 700;
+            color: var(--olive-dark);
+            font-size: 1.2rem;
+        }
+
+        .qr-container {
+            background: #faf8f5;
+            padding: 12px;
+            border-radius: 16px;
+            border: 1px solid rgba(74, 93, 78, 0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: inline-block;
+            margin: 8px 0;
+        }
+
+        .qr-code-img {
+            width: 160px;
+            height: 160px;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .qr-subtext {
+            font-size: 0.95rem;
+            color: var(--olive-dark);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body lang="en">
+
+<!-- Persistent Header -->
+<header>
+    <div class="logo-box">
+        <img src="Asset 5_3.png" alt="Club Logo" class="logo-img" onerror="this.onerror=null; this.src='logo.png';" />
+        <span class="header-title" data-i18n="headerTitle">Creative Writing & Poetry</span>
+    </div>
+    <button class="lang-btn" onclick="toggleLanguage()" id="lang-btn">العربية</button>
+    <div class="logo-box">
+        <img src="htu_logo.png" alt="HTU Logo" class="logo-img" onerror="this.onerror=null; this.src='favicon.png';" />
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- Home / Main Screen -->
+    <div id="home-screen" class="screen active">
+        <div class="home-hero">
+            <h1 data-i18n="mainTitle">Match the Description</h1>
+            <p data-i18n="mainDesc">A literary challenge brought to you by the <strong>Creative Writing & Poetry Club</strong> at HTU. Test your literary intuition across 6 levels by identifying prominent figures from their craft.</p>
+            <button class="btn" onclick="startGame()" data-i18n="startBtn">Start Challenge</button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <div class="game-stats">
+            <span id="level-indicator" class="level-badge">LEVEL 1 / 6</span>
+            <div class="hearts-container" id="hearts-display"></div>
+        </div>
+
+        <div class="character-card">
+            <img id="char-img" src="" alt="Character" class="character-img" />
+            <h2 id="char-name" class="character-name">Character Name</h2>
+        </div>
+
+        <div id="options-container" class="options-container"></div>
+
+        <div class="timer-section">
+            <div class="timer-bar-bg">
+                <div id="timer-bar" class="timer-bar-fill"></div>
+            </div>
+            <div class="timer-text-container">
+                <span data-i18n="timeRemaining">Time Remaining</span>
+                <span id="timer-number" class="timer-number">15s</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Screen with QR Code -->
+    <div id="end-screen" class="screen">
+        <div class="end-screen-content">
+            <div id="end-icon" class="end-icon">📜</div>
+            <h2 id="end-title" class="end-title" data-i18n="endTitle">Challenge Complete!</h2>
+            <p id="end-desc" class="end-desc" data-i18n="endDesc">Thank you for playing. Stay connected with our community for upcoming literary workshops and competitions.</p>
+
+            <!-- Instagram QR Code Card -->
+            <div class="ig-card">
+                <span class="ig-handle">@htu_writing_club</span>
+
+                <!-- QR Code Frame -->
+                <div class="qr-container">
+                    <img src="qr.png" alt="Instagram QR Code" class="qr-code-img" />
+                </div>
+
+                <p class="qr-subtext" data-i18n="scanText">Scan with your camera to follow us on Instagram 📸</p>
+            </div>
+
+            <button class="btn" onclick="showHomeScreen()" data-i18n="tryAgainBtn">Try Again</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // i18n Dictionary for static UI text
+    const dictionary = {
+        en: {
+            langBtn: "العربية",
+            headerTitle: "Creative Writing & Poetry",
+            mainTitle: "Match the Description",
+            mainDesc: "A literary challenge brought to you by the <strong>Creative Writing & Poetry Club</strong> at HTU. Test your literary intuition across 6 levels by identifying prominent figures from their craft.",
+            startBtn: "Start Challenge",
+            levelPrefix: "LEVEL",
+            timeRemaining: "Time Remaining",
+            winTitle: "Master of Words!",
+            winDesc: "Impressive! You conquered the literary challenge.",
+            loseTitle: "Challenge Ended",
+            loseDesc: "You ran out of hearts this time. Remember, every master starts as a student—try again!",
+            scanText: "Scan with your camera to follow us on Instagram 📸",
+            tryAgainBtn: "Try Again"
+        },
+        ar: {
+            langBtn: "English",
+            headerTitle: "نادي الكتابة الإبداعية والشعر",
+            mainTitle: "طابق الوصف",
+            mainDesc: "تحدٍ أدبي يقدمه لكم <strong>نادي الكتابة الإبداعية والشعر</strong> في جامعة الحسين التقنية. اختبر حدسك الأدبي عبر 6 مستويات من خلال التعرف على الشخصيات البارزة من وصف ملامحهم.",
+            startBtn: "ابدأ التحدي",
+            levelPrefix: "المستوى",
+            timeRemaining: "الوقت المتبقي",
+            winTitle: "سيد الكلمات!",
+            winDesc: "مذهل! لقد أجبت على جميع المستويات الستة بدقة وتغلبت على التحدي الأدبي.",
+            loseTitle: "انتهى التحدي",
+            loseDesc: "لقد نفدت قلوبك هذه المرة. تذكر، كل محترف يبدأ كمتعلم — حاول مرة أخرى!",
+            scanText: "امسح الكاميرا لمتابعتنا على إنستغرام 📸",
+            tryAgainBtn: "حاول مرة أخرى"
+        }
+    };
+
+    // Bilingual Levels Data
+    const levelsData = [
+        {
+            name: { en: "Hermione Granger", ar: "هيرمايوني جرينجر" },
+            img: "hp.jpg",
+            options: [
+                {
+                    text: {
+                        en: "A young girl with intense, inquisitive dark brown eyes, a slightly raised left eyebrow showing skepticism, and thick untamed hair cascading over her shoulders.",
+                        ar: "فتاة صغيرة ذات عينين بنيتين داكنتين وفضوليتين، وحاجب أيسر مرفوع قليلاً يظهر الشك، وشعر كثيف غير مروض ينسدل على كتفيها."
+                    }, correct: true
+                },
+                {
+                    text: {
+                        en: "A quiet girl with round, wide-set hazel eyes, soft relaxed facial features, and neatly braided dark brown hair.",
+                        ar: "فتاة هادئة ذات عينين عسليتين مستديرتين وواسعتين، وملامح وجه ناعمة ومسترخية، وشعر بني داكن مضفر بعناية."
+                    }, correct: false
+                },
+                {
+                    text: {
+                        en: "A young girl with a narrow jawline, thin pale lips slightly parted, and slicked-back dark hair pulled tight.",
+                        ar: "فتاة بخط فك ضيق، وشفتين شاحبتين رقيقتين متباعدتين قليلاً، وشعر داكن مشدود للخلف بإحكام."
+                    }, correct: false
+                }
+            ]
+        },
+        {
+            name: { en: "Tony Stark (Iron Man)", ar: "توني ستارك (آيرون مان)" },
+            img: "ironman.jpg",
+            options: [
+                {
+                    text: {
+                        en: "A broad-jawed man with a with a full beard, sharp cheekbones, and heavy hooded eyelids casting a shadow over his eyes.",
+                        ar: "رجل عريض الفك، بلحية مكتملة، ذو عظام وجنتين بارزة، وجفون ثقيلة مبطنة تلقي بظلالها على عينيه."
+                    }, correct: false
+                },
+                {
+                    text: {
+                        en: "A charismatic man with sharp hazel-brown eyes, a neatly sculpted anchor beard line, and faint smirk lines around a confident, tight mouth.",
+                        ar: "رجل يتمتع بكاريزما، ذو عينين حادتين بلون بني عسلي، ولحية منحوتة بعناية، وخطوط ابتسامة باهتة حول فم واثق ومحكم."
+                    }, correct: true
+                },
+                {
+                    text: {
+                        en: "A sharp-featured man with a prominent nose bridge, dark unkempt eyebrows, and a thick handlebar mustache.",
+                        ar: "رجل حاد الملامح ذو جسر أنف بارز، وحواجب داكنة غير مرتبة، وشارب كثيف مفتول."
+                    }, correct: false
+                }
+            ]
+        },
+        {
+            name: { en: "Umm Kulthum", ar: "أم كلثوم" },
+            img: "umkulthum.jpg",
+            options: [
+                {
+                    text: {
+                        en: "A poised, dignified woman with iconic dark cat-eye sunglasses shielding expressive eyes, soft cheeks, and an elegant, powerful facial poise.",
+                        ar: "امرأة رصينة ووقورة، ترتدي نظارات شمسية داكنة شهيرة تخفي عينين معبرتين، بخدين ناعمين، وحضور وجه أنيق وقوي."
+                    }, correct: true
+                },
+                {
+                    text: {
+                        en: "A young woman with bright blue eyes, sharp high cheekbones, and long flowing hair over her shoulders.",
+                        ar: "امرأة شابة ذات عينين زرقاوين لامعتين، وعظام وجنتين عالية وحادة، وشعر طويل منسدل على كتفيها."
+                    }, correct: false
+                },
+                {
+                    text: {
+                        en: "A round-faced girl with short cropped dark hair, thick eyebrows, and a wide dimpled smile.",
+                        ar: "فتاة مستديرة الوجه بشعر داكن قصير، وحواجب كثيفة، وابتسامة واسعة تغمرها الغمازات."
+                    }, correct: false
+                }
+            ]
+        },
+        {
+            name: { en: "Katniss Everdeen", ar: "كاتنيس إيفردين" },
+            img: "hg.jpg",
+            options: [
+                {
+                    text: {
+                        en: "A young woman with dark hair pulled back into a side braid, guarded olive-gray eyes, and a tight, unyielding jawline.",
+                        ar: "امرأة شابة بشعر داكن مشدود للخلف في ضفيرة جانبية، وعينين رماديتين زيتونيتين حذرتين، وخط فك مشدود لا يلين."
+                    }, correct: true
+                },
+                {
+                    text: {
+                        en: "A woman with high arched eyebrows, bright blue eyes, and long flowing golden hair resting over her shoulders.",
+                        ar: "امرأة بحواجب مقوسة عالية، وعينين زرقاوين لامعتين، وشعر ذهبي طويل منسدل يستقر على كتفيها."
+                    }, correct: false
+                },
+                {
+                    text: {
+                        en: "A round-faced girl with soft hazel eyes, full pink lips, and loose dark curls framing her forehead.",
+                        ar: "فتاة مستديرة الوجه بعينين عسليتين ناعمتين، وشفتين ورديتين ممتلئتين، وتجعيدات داكنة فضفاضة تؤطر جبهتها."
+                    }, correct: false
+                }
+            ]
+        },
+        {
+            name: { en: "Sherlock Holmes", ar: "شارلوك هولمز" },
+            img: "sherlock.jpg",
+            options: [
+                {
+                    text: {
+                        en: "A gentleman with a round soft nose bridge, smooth unlined cheeks, and wide, expressive light brown eyes.",
+                        ar: "رجل نبيل بجسر أنف دائري وناعم، وخدين أملسين خاليين من التجاعيد، وعينين واسعتين معبرتين بلون بني فاتح."
+                    }, correct: false
+                },
+                {
+                    text: {
+                        en: "A man with a heavy dark beard covering his jaw, thick bushy eyebrows, and a tilted head angle.",
+                        ar: "رجل بلحية داكنة كثيفة تغطي فكه، وحواجب كثيفة وغزيرة، وزاوية رأس مائلة."
+                    }, correct: false
+                },
+                {
+                    text: {
+                        en: "A hawk-like face with a sharp, thin nose bridge, keen gray-blue eyes set deep under prominent brow ridges, and a firm, razor-thin mouth.",
+                        ar: "وجه يشبه الصقر بجسر أنف حاد ورقيق، وعينين رماديتين مزرقتين ثاقبتين غائرتين تحت حواف حاجب بارزة، وفم حازم ورقيق كالشفرة."
+                    }, correct: true
+                }
+            ]
+        },
+        {
+            name: { en: "Abu Essam", ar: "أبو عصام" },
+            img: "abuessam.jpg",
+            options: [
+                {
+                    text: {
+                        en: "A dignified man with a sculpted graying beard and mustache, calm wise eyes, and a sharp nose bridge framed by a traditional hatta.",
+                        ar: "رجل وقور بلحية وشارب يكسوهما الشيب ومنحوتين بعناية، وعينين هادئتين وحكيمتين، وجسر أنف حاد تؤطره الحطة التقليدية ."
+                    }, correct: true
+                },
+                {
+                    text: {
+                        en: "A youthful, clean-shaven man with long dark hair covering his ears and a sharp, pointy chin.",
+                        ar: "شاب حليق الذقن بشعر داكن طويل يغطي أذنيه وذقن حاد ومدبب."
+                    }, correct: false
+                },
+                {
+                    text: {
+                        en: "A round-faced man with wide hazel eyes, prominent cheek dimples, and a broad smile.",
+                        ar: "رجل مستدير الوجه بعينين عسليتين واسعتين، وغمازات خد بارزة، وابتسامة عريضة."
+                    }, correct: false
+                }
+            ]
+        }
+    ];
+
+    let currentLang = 'en';
+    let currentLevel = 0;
+    let hearts = 2;
+    let timeLeft = 15;
+    let timerInterval = null;
+    let isAnsweringBlocked = false;
+    let gameWonLast = false; // Tracks win/loss state for translation updates
+
+    // DOM Elements
+    const body = document.body;
+    const homeScreen = document.getElementById('home-screen');
+    const gameScreen = document.getElementById('game-screen');
+    const endScreen = document.getElementById('end-screen');
+    const langBtn = document.getElementById('lang-btn');
+
+    const levelIndicator = document.getElementById('level-indicator');
+    const heartsDisplay = document.getElementById('hearts-display');
+    const charImg = document.getElementById('char-img');
+    const charName = document.getElementById('char-name');
+    const optionsContainer = document.getElementById('options-container');
+    const timerBar = document.getElementById('timer-bar');
+    const timerNumber = document.getElementById('timer-number');
+
+    // Toggle Language Function
+    function toggleLanguage() {
+        currentLang = currentLang === 'en' ? 'ar' : 'en';
+        body.setAttribute('lang', currentLang);
+        body.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+
+        updateUI();
+    }
+
+    function updateUI() {
+        // Update Static Elements
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            el.innerHTML = dictionary[currentLang][key];
+        });
+
+        // Update Language Button Text
+        langBtn.textContent = dictionary[currentLang].langBtn;
+
+        // Re-render Level Elements if in-game
+        if (gameScreen.classList.contains('active')) {
+            levelIndicator.textContent = `${dictionary[currentLang].levelPrefix} ${currentLevel + 1} / ${levelsData.length}`;
+            charName.textContent = levelsData[currentLevel].name[currentLang];
+
+            // Re-translate Options (keep their correct/wrong status visually if they clicked already, though block is active)
+            const optionBtns = optionsContainer.children;
+            levelsData[currentLevel].options.forEach((opt, index) => {
+                if(optionBtns[index]) {
+                    optionBtns[index].textContent = opt.text[currentLang];
+                }
+            });
+        }
+
+        // Update End Screen texts dynamically if active
+        if (endScreen.classList.contains('active')) {
+            const endIcon = document.getElementById('end-icon');
+            const endTitle = document.getElementById('end-title');
+            const endDesc = document.getElementById('end-desc');
+
+            if (gameWonLast) {
+                endIcon.textContent = "🖋️";
+                endTitle.textContent = dictionary[currentLang].winTitle;
+                endDesc.textContent = dictionary[currentLang].winDesc;
+            } else {
+                endIcon.textContent = "🥀";
+                endTitle.textContent = dictionary[currentLang].loseTitle;
+                endDesc.textContent = dictionary[currentLang].loseDesc;
+            }
+        }
+    }
+
+    function renderHearts() {
+        heartsDisplay.innerHTML = '';
+        for (let i = 0; i < 2; i++) {
+            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("viewBox", "0 0 24 24");
+            svg.setAttribute("class", `heart-icon ${i >= hearts ? 'lost' : ''}`);
+            svg.innerHTML = `<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>`;
+            heartsDisplay.appendChild(svg);
+        }
+    }
+
+    function showHomeScreen() {
+        endScreen.classList.remove('active');
+        gameScreen.classList.remove('active');
+        homeScreen.classList.add('active');
+    }
+
+    function startGame() {
+        currentLevel = 0;
+        hearts = 2;
+        isAnsweringBlocked = false;
+        homeScreen.classList.remove('active');
+        endScreen.classList.remove('active');
+        gameScreen.classList.add('active');
+        loadLevel();
+    }
+
+    function loadLevel() {
+        if (currentLevel >= levelsData.length) {
+            endGame(true);
+            return;
+        }
+
+        isAnsweringBlocked = false;
+        const data = levelsData[currentLevel];
+        levelIndicator.textContent = `${dictionary[currentLang].levelPrefix} ${currentLevel + 1} / ${levelsData.length}`;
+        renderHearts();
+
+        charImg.src = data.img;
+        charName.textContent = data.name[currentLang];
+
+        optionsContainer.innerHTML = '';
+        data.options.forEach((opt) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.textContent = opt.text[currentLang];
+            btn.onclick = (e) => handleAnswer(opt.correct, e.target);
+            optionsContainer.appendChild(btn);
+        });
+
+        startTimer();
+    }
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        timeLeft = 15;
+        updateTimerUI();
+
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            updateTimerUI();
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                handleTimeout();
+            }
+        }, 1000);
+    }
+
+    function updateTimerUI() {
+        timerNumber.textContent = `${timeLeft}s`;
+        const percentage = (timeLeft / 15) * 100;
+        timerBar.style.width = `${percentage}%`;
+
+        if (timeLeft <= 5) {
+            timerNumber.classList.add('boiling');
+            timerBar.style.backgroundColor = 'var(--danger-color)';
+        } else {
+            timerNumber.classList.remove('boiling');
+            timerBar.style.backgroundColor = 'var(--olive-green)';
+        }
+    }
+
+    function handleAnswer(isCorrect, targetBtn) {
+        if (isAnsweringBlocked) return;
+        isAnsweringBlocked = true;
+        clearInterval(timerInterval);
+
+        if (isCorrect) {
+            targetBtn.classList.add('correct');
+            setTimeout(() => {
+                currentLevel++;
+                loadLevel();
+            }, 800);
+        } else {
+            targetBtn.classList.add('wrong');
+            setTimeout(() => {
+                deductHeart();
+            }, 800);
+        }
+    }
+
+    function handleTimeout() {
+        if (isAnsweringBlocked) return;
+        isAnsweringBlocked = true;
+        deductHeart();
+    }
+
+    function deductHeart() {
+        hearts--;
+        renderHearts();
+
+        if (hearts <= 0) {
+            endGame(false);
+        } else {
+            currentLevel++;
+            loadLevel();
+        }
+    }
+
+    function endGame(won) {
+        clearInterval(timerInterval);
+        gameScreen.classList.remove('active');
+        endScreen.classList.add('active');
+        gameWonLast = won; // Save state for language toggling
+
+        const endIcon = document.getElementById('end-icon');
+        const endTitle = document.getElementById('end-title');
+        const endDesc = document.getElementById('end-desc');
+
+        if (won) {
+            endIcon.textContent = "🖋️";
+            endTitle.textContent = dictionary[currentLang].winTitle;
+            endDesc.textContent = dictionary[currentLang].winDesc;
+        } else {
+            endIcon.textContent = "🥀";
+            endTitle.textContent = dictionary[currentLang].loseTitle;
+            endDesc.textContent = dictionary[currentLang].loseDesc;
+        }
+    }
+
+    // Initialize UI on load
+    updateUI();
+</script>
+</body>
+</html>
